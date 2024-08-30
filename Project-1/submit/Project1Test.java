@@ -51,27 +51,30 @@ public class Project1Test {
         // Test that runner does not contain duplicates, expected return is false
         assert !runner.hasDuplicates();
     }
-
+    /**
+     * testingTwo()
+     * Test that it returns the smallest value, expected return is "1"
+     */
     @Test
     public void testingTwo() {
-        // Test that it returns the smallest value, expected return is "1"
         assert runner.findSmallest() == 1;
     }
-
+    /**
+     * testingThree()
+     * Test that it returns the largest value, expected return is "3"
+     */
     @Test
     public void testingThree() {
-        // Test that it returns the largest value, expected return is "3"
         assert runner.findLargest() == 3;
     }
-
+    /**
+     * testingFour()
+     * Adds 3 (a duplicate value) to the list of numbers
+     * Assert that it returns true (contains duplicates)
+     */
     @Test
     public void testingFour() {
-        // Adds 3 (a duplicate value) to the list of numbers
         numbers.add(3);
-        // Assert that it returns true (contains duplicates)
         assert runner.hasDuplicates();
     }
-    // Add more tests here. Remember, the goal is to
-    // test every method and to execute every line of code
-    // in your Project1 class.
 }
