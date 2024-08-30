@@ -1,0 +1,21 @@
+{
+    "java.project.sourcePaths": [
+        "submit",
+        "src",
+        "misc",
+        "main"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/*.jar"
+    ],
+    "java.checkstyle.configuration": "${workspaceFolder}/lib/Checkstyle.xml",
+    "web-CAT.submitURLs": [
+        "https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/wa/assignments/eclipse?institution=UNCC"
+    ],
+    "testing.countBadge": "failed",
+    "testing.displayedCoveragePercent": "statement",
+    "testing.showCoverageInExplorer": true,
+    "terminal.integrated.fontSize": 14,
+    "editor.fontSize": 14
+}
