@@ -1,0 +1,14 @@
+<module name="Checker">
+    <property name="severity" value="error"/>
+    <module name="TreeWalker">
+        <module name="EmptyBlock"/>
+        <property name="tabWidth" value="12"/>
+        <module name="EmptyBlock">
+            <property name="tokens" value="LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_IF,LITERAL_TRY,STATIC_INIT"/>
+            <property name="severity" value="error"/>
+        </module>
+    </module>
+    <module name="FileTabCharacter"/>
+</module>
+
+
