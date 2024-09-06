@@ -2,7 +2,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 
 /**
-Short main program to demo how to use Project1.java
+Short main program to demo how to use Project1.java.
 
 @author  mapq
 @version Aug 06, 2024
@@ -35,7 +35,7 @@ public class Project1Main {
     }
 
     /**
-     * example 2 - how to use Project1 with Integers
+     * example 2 - how to use Project1 with Integers.
      */
     public static void example2()
     {

@@ -2,11 +2,14 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+// import java.util.AbstractList;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.function.*;
 
-
+/**
+ * Class for testing Project1 class.
+ */
 public class Project1Test {
 
     /**
@@ -27,8 +30,13 @@ public class Project1Test {
      * testing your class.
      */
     private CollectionUtilities<Integer> runner;
+    private Project1<String> collection;
     private ArrayList<Integer> numbers = new ArrayList<>();
-
+    private ArrayList<String> words = new ArrayList<>();
+    
+    /**
+     * Setup function for testing.
+     */
     @Before
     public void setup() {
         // create some data for testing, then
@@ -39,11 +47,17 @@ public class Project1Test {
         numbers.add(1);
         numbers.add(2);
         numbers.add(3);
+
+        words.add("aaa");
+        words.add("bbbbb");
+        words.add("cccc");
+
+        collection = new Project1<>(words);
         runner = new Project1<>(numbers);
     }
 
     /**
-     * testingOne()
+     * testingOne().
      * Tests duplicates
      */
     @Test
@@ -51,24 +65,32 @@ public class Project1Test {
         // Test that runner does not contain duplicates, expected return is false
         assert !runner.hasDuplicates();
     }
+    
     /**
-     * testingTwo()
+     * testingTwo().
      * Test that it returns the smallest value, expected return is "1"
+     * and that when empty it returns null
      */
     @Test
     public void testingTwo() {
         assert runner.findSmallest() == 1;
+        runner = new Project1<>(new ArrayList<Integer>());
+        assert runner.findSmallest() == null;
     }
+    
     /**
-     * testingThree()
+     * testingThree().
      * Test that it returns the largest value, expected return is "3"
+     * and that when empty it returns null
      */
     @Test
     public void testingThree() {
         assert runner.findLargest() == 3;
+        runner = new Project1<>(new ArrayList<Integer>());
+        assert runner.findLargest() == null;
     }
     /**
-     * testingFour()
+     * testingFour().
      * Adds 3 (a duplicate value) to the list of numbers
      * Assert that it returns true (contains duplicates)
      */
@@ -76,5 +98,27 @@ public class Project1Test {
     public void testingFour() {
         numbers.add(3);
         assert runner.hasDuplicates();
+    }
+    
+    /**
+     * testingFive().
+     * Tests the findOneThat function
+     * Should return "bbbbb" as it's the first string that's length is larger then 4.
+     */
+    @Test
+    public void testingFive() {
+        assert "bbbbb".equals(collection.findOneThat((s) -> s.length() > 4));
+        words.add("ddddd");
+        assert "bbbbb".equals(collection.findOneThat((s) -> s.length() > 4));
+    }
+    /**
+     * testingSix().
+     * Tests that the filterList function
+     * Should return a new collection with only those strings that start with the lower case 'a'
+     */
+    @Test
+    public void testingSix(){
+        AbstractList<String> list = collection.filterList((s) -> s.charAt(0) == 'a');
+        assert list.get(0).contains("a");
     }
 }
