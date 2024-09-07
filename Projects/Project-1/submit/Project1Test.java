@@ -63,7 +63,7 @@ public class Project1Test {
     @Test
     public void testingOne() {
         // Test that runner does not contain duplicates, expected return is false
-        assert !runner.hasDuplicates();
+        assertEquals(false, runner.hasDuplicates());
     }
     
     /**
@@ -73,9 +73,9 @@ public class Project1Test {
      */
     @Test
     public void testingTwo() {
-        assert runner.findSmallest() == 1;
+        assertEquals(Integer.valueOf(1), runner.findSmallest());
         runner = new Project1<>(new ArrayList<Integer>());
-        assert runner.findSmallest() == null;
+        assertEquals(null, runner.findSmallest());
     }
     
     /**
@@ -85,9 +85,9 @@ public class Project1Test {
      */
     @Test
     public void testingThree() {
-        assert runner.findLargest() == 3;
+        assertEquals(Integer.valueOf(3), runner.findLargest());
         runner = new Project1<>(new ArrayList<Integer>());
-        assert runner.findLargest() == null;
+        assertNull(runner.findLargest());
     }
     /**
      * testingFour().
@@ -97,7 +97,7 @@ public class Project1Test {
     @Test
     public void testingFour() {
         numbers.add(3);
-        assert runner.hasDuplicates();
+        assertTrue(runner.hasDuplicates());
     }
     
     /**
@@ -107,9 +107,9 @@ public class Project1Test {
      */
     @Test
     public void testingFive() {
-        assert "bbbbb".equals(collection.findOneThat((s) -> s.length() > 4));
+        assertEquals("bbbbb", collection.findOneThat(s -> s.length() > 4));
         words.add("ddddd");
-        assert "bbbbb".equals(collection.findOneThat((s) -> s.length() > 4));
+        assertEquals("bbbbb", collection.findOneThat(s -> s.length() > 4));
     }
     /**
      * testingSix().
@@ -118,7 +118,7 @@ public class Project1Test {
      */
     @Test
     public void testingSix(){
-        AbstractList<String> list = collection.filterList((s) -> s.charAt(0) == 'a');
-        assert list.get(0).contains("a");
+        AbstractList<String> list = collection.filterList(s -> s.charAt(0) == 'a');
+        assertTrue(list.get(0).contains("a"));
     }
 }
