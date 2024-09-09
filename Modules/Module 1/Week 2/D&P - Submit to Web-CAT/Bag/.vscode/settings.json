@@ -10,7 +10,7 @@
     "web-CAT.submitURLs": [
         "https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/wa/assignments/eclipse?institution=UNCC"
     ],
-    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.colorTheme": "Theme",
     "editor.fontSize": 16,
     "testing.countBadge": "failed",
     "testing.displayedCoveragePercent": "statement",

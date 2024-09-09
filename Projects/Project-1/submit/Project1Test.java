@@ -74,8 +74,10 @@ public class Project1Test {
     @Test
     public void testingTwo() {
         assertEquals(Integer.valueOf(1), runner.findSmallest());
+        numbers.add(0);
+        assertEquals(Integer.valueOf(0),runner.findSmallest());
         runner = new Project1<>(new ArrayList<Integer>());
-        assertEquals(null, runner.findSmallest());
+        assertNull(runner.findSmallest());
     }
     
     /**
@@ -110,6 +112,9 @@ public class Project1Test {
         assertEquals("bbbbb", collection.findOneThat(s -> s.length() > 4));
         words.add("ddddd");
         assertEquals("bbbbb", collection.findOneThat(s -> s.length() > 4));
+        words.clear();
+        words.add("aa");
+        assertNull(collection.findOneThat(s -> s.length() > 4));
     }
     /**
      * testingSix().

@@ -29,11 +29,17 @@ public class Project1<E extends Comparable<E>>
      */
     @Override
     public E findSmallest() {
+        // If list is empty return null
         if (abstractList.isEmpty()) {
             return null;
         }
+        // set smallest value to first value
         E smallestValue = abstractList.get(0);
-        for(E e : abstractList){
+        for (E e : abstractList) {
+            /* 
+            if current value (e) is smaller then smallestValue, 
+            set smallestValue to current value (e)
+            */
             if(e.compareTo(smallestValue) < 0){
                 smallestValue = e;
             }
@@ -47,11 +53,14 @@ public class Project1<E extends Comparable<E>>
      */
     @Override
     public E findLargest() {
+        // If empty return null
         if (abstractList.isEmpty()) {
             return null;
         }
+        // set largestValue to first value
         E largestValue = abstractList.get(0);
         for (E i : abstractList) {
+            // if current value (i) is larger set largestValue to current value (i)
             if (i.compareTo(largestValue) > 0) {
                 largestValue = i;
             }
@@ -65,6 +74,7 @@ public class Project1<E extends Comparable<E>>
      */
     @Override
     public boolean hasDuplicates() {
+        // make arraylist to store seen values
         ArrayList<E> seenValues = new ArrayList<>();
         for (E i : abstractList) {
             if (seenValues.contains(i)) { // If it contains the value return true
@@ -84,14 +94,13 @@ public class Project1<E extends Comparable<E>>
         @param p Predicate
      */
     public E findOneThat(Predicate<E> p) {
-        E value = null;
         for (E e : abstractList) {
+            // if it passes return current value (e)
             if (p.test(e)) {
-                value = e;
-                break;
+                return e;
             }
         }
-        return value;
+        return null; // if nothing passes the test return null
     }
 
     /**
@@ -106,9 +115,11 @@ public class Project1<E extends Comparable<E>>
      * @param p Predicate
      * @return AbstractList<E>
      */
-    public AbstractList<E> filterList(Predicate<E> p){
+    public AbstractList<E> filterList(Predicate<E> p) {
+        // list to return
         ArrayList<E> returnList = new ArrayList<E>();
-        for(E e : abstractList){
+        for (E e : abstractList) {
+            // if it passes the test add it to the list
             if(p.test(e)){
                 returnList.add(e);
             }
