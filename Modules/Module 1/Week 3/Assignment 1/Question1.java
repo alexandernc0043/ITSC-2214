@@ -4,7 +4,7 @@
 //The generic copyArray() method declares and initializes a new array, based on the given array of any Object type.
 //It copies all elements one by one in the order of their indexes in the given array to the new array, and then return the new array.
 public class TestGenericMethod {
-  public static <T> TIl copyArray(T[] inputs) {
+  public static <T> T[] copyArray(T[] inputs) {
     T[] newarray = (T []) (new Object[inputs.length]);
     for (int i = 0; i<inputs.length; i++)
       newarray [i] = inputs[i];
