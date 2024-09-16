@@ -9,16 +9,11 @@ public class node<E> {
   public node<E> getNext() {return next; }
   public void setNext(node<E> n) {next = n; }
 }
-
-public node<E> buildNodes(E[] values)
+public static node<String> changeMe(node<String> head)
 {
-  node<E> node = new node<E>(values[0], null);
-  node<E> head = node;
-  for(int i = 1; i < values.length; i++){
-      node<E> newNode = new node<E>(values[i], null);
-      head.setNext(newNode);
-      head = newNode;
-  }
+    node<String> node = head;
+    while(node.getNext() != null){
+    node = node.getNext();
+    }
     return node;
 }
-
