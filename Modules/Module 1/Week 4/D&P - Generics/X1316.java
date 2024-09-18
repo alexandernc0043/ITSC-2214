@@ -14,3 +14,10 @@ public int binarySearch(int[] numbers, int search)
    }
    return -1;  // not found
 }
+public class QuizQuestion<E extends Comparable<E>>
+{
+   public int binarySearch(E[] items, E search)
+   {
+      your code
+   }
+}
