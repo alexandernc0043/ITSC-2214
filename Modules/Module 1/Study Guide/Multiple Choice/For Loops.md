@@ -10,6 +10,7 @@ for (statement 1; statement 2; statement 3) {
    Code to be executed
   }
 ```
+## Examples
 ```java
 for(int i = 0; i < array.length; i++){
     Code to be executed
