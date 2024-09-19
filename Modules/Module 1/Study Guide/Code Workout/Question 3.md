@@ -1,0 +1,1 @@
+## Write a hash function for a string key that adds the letters in the key
