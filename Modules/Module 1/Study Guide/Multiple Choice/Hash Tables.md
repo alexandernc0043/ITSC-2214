@@ -57,3 +57,7 @@ The character "B" has Unicode code point 66, "o" has 111, and "b" has 98. Adding
 
 The number returned by the hash function is called the hash code.
 
+After storing "Bob" where the hash code tells us (index 5), our array now looks like this:
+```java
+hashSet = {null, null, null, null, null, "Bob", null, null, null, null};
+```
