@@ -25,3 +25,4 @@ public static int binarySearch(int[] arr, int target) {
     // Target not found
     return -1;
     }
+```
