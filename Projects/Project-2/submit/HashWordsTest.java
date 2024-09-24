@@ -42,6 +42,7 @@ public class HashWordsTest {
     @Test
     public void testThree(){
         assertEquals(1, runner.frequency("hello"));
+        assertEquals(0, runner.frequency("world"));
     }
     /**
      * Tests the contain method.

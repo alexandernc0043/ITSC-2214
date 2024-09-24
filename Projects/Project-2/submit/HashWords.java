@@ -66,35 +66,49 @@ public class HashWords {
      * @param w Word
      */
     public void addWord(String w) {
-        // hash value of w
+        /*
+        To add the word to the table,
+        the algorithm should call hashKey() to get the index for the word.
+         */
         int hash = hashKey(w);
-        // if words at the index of the hash of w is w, increment words at index hash
-        if (words[hash] == null){
-            words[hash] = new WordFrequency(w);
-            uniqueWords++; // increment unique words
-        }
-        // if the word is not in the table add it
-        else if(words[hash].getWord().equals(w)){
-            words[hash].increment();
-        }
-        else {
-            for(int i = hash + 1; i < size; i++){
-                if(words[i] == null) {
-                    words[i] = new WordFrequency(w);
-                    uniqueWords++; // increment unique words
-                    break;
+        /*
+        Then, the algorithm should check to see if the word already exists in the table.
+        If it is, it simply increments the count stored in the
+        WordFrequency for that word and the work is done.
+         */
+        for(WordFrequency word: words){
+            if(word != null){
+                if(word.getWord().equals(w)){
+                    word.increment();
+                    return;
                 }
             }
-            // if that doesn't work expand words by 3
-            words = Arrays.copyOf(words, size * 3);
-            size = size * 3;
-            // retry finding a spot
-            for(int i = hash + 1; i < size; i++){
-                if(words[i] == null) {
-                    words[i] = new WordFrequency(w);
-                    uniqueWords++; // increment unique words
-                    break;
-                }
+        }
+        /*
+        If the word is not on the table,
+        the algorithm should check if there is space in the table to store one more word.
+        If there is, it should proceed to add the word to the hash table.
+         */
+        for(int i = hash + 1; i < size; i++){
+            if(words[i] == null){
+                words[i] = new WordFrequency(w);
+                return;
+            }
+        }
+        /*
+        If there is no more space,
+        the method should grow the array and rehash all the words to add them back into the table.
+        The new size needs to be 3 times of the previous size.
+        Only after expanding the table and rehashing all the words,
+        it should proceed to add the new word to the hash table.
+         */
+        size = size * 3;
+        WordFrequency[] temp = words.clone();
+        words = new WordFrequency[size];
+        for(WordFrequency wordFrequency : temp){
+            if(wordFrequency != null){
+                int hashValue = hashKey(wordFrequency.getWord());
+                words
             }
         }
     }
