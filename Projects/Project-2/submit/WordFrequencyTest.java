@@ -53,6 +53,7 @@ public class WordFrequencyTest {
         WordFrequency runner2 = new WordFrequency("Hello");
         assertEquals(runner2, runner);
         assertTrue(runner2.equals("Hello"));
+        assertTrue(runner2.equals(runner2));
         assertFalse(runner2.equals("World"));
         assertFalse(runner2.equals(1));
     }
