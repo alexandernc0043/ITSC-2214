@@ -1,5 +1,6 @@
 import itsc2214.*; // not needed now, but you might in your projects
 
+import java.util.Arrays;
 import java.util.Hashtable;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Hashtable;
  * and compute modulo with the size of the table.
  */
 public class HashWords {
-
+    // private variables
     private int size;
     private WordFrequency[] words;
     private int uniqueWords = 0;
@@ -50,7 +51,7 @@ public class HashWords {
 
     /**
      * Returns the count of WordFrequency if the word (w) exists in the table, returns 0 otherwise.
-     * @param w - String
+     * @param w String
      * @return frequency of w
      */
     public int frequency(String w) {
@@ -63,33 +64,35 @@ public class HashWords {
      * @param w Word
      */
     public void addWord(String w) {
-        // if it contains w
-        if(contains(w)){
-            // and the word at the hashkey is w
-            if(words[hashKey(w)].getWord().equals(w)){
-                // increment the word
-                words[hashKey(w)].increment();
-            }
-            else {
-                // find the word using linear probing
-                for(int i = hashKey(w) + 1; i < words.length; i++){
-                    // if word at index i is w
-                    if(words[i].getWord().equals(w)){
-                        // increment word at index i
-                        words[i].increment();
-                    }
-                }
-            }
+        // hash value of w
+        int hash = hashKey(w);
+        // if words at the index of the hash of w is w, increment words at index hash
+        if (words[hash] == null){
+            words[hash] = new WordFrequency(w);
+            uniqueWords++; // increment unique words
+
+        }
+        // if the word is not in the table add it
+        else if(words[hash].getWord().equals(w)){
+            words[hash].increment();
+
         }
         else {
-            // if the space is empty
-            if(words[hashKey(w)] == null){
-                // assign word at haskey(w)
-                words[hashKey(w)] = new WordFrequency(w);
+            for(int i = hash + 1; i < size; i++){
+                if(words[i] == null) {
+                    words[i] = new WordFrequency(w);
+                    uniqueWords++; // increment unique words
+                    break;
+                }
             }
-            else {
-                for(int i = hashKey(w) + 1; i < words.length; i++){
-                    if()
+            // if that doesn't work expand words by 3
+            words = Arrays.copyOf(words, size * 3);
+            size = size * 3;
+            // retry finding a spot
+            for(int i = hash + 1; i < size; i++){
+                if(words[i] == null) {
+                    words[i] = new WordFrequency(w);
+                    uniqueWords++; // increment unique words
                 }
             }
         }
@@ -108,10 +111,7 @@ public class HashWords {
 
     /**
      * Return the number of unique words stored in the table.
-     * You should keep track of this number internally, rather than compute it when requested.
-     * Each time you add a word to the table, add 1 to an internal counter if it is a new word (unique).
-     * Then return the value of that counter when this method is called.
-     * Note that this is a count of the number of unique words stored in the table.
+     * @return Int Unique words.
      */
     public int numUniqueWordsInTable() {
         return uniqueWords;
@@ -146,17 +146,15 @@ public class HashWords {
     }
 
     /**
-     * There is a concept called term frequency,
-     * and it refers to a measure that indicates how unique a term (or word)
-     * is in the particular collection of words represented by this table.
-     * It is computed as a ratio of the number of times a particular word appears divided by the total number of words in the document.
-     * This method returns the result of  frequency(w) / totalNumOfWords().
-     * If the word w is not on the table, this method returns 0.
+     * Returns the term frequency of w (frequency(w) / totalNumOfWords)
      * @param w Word
-     * @return double
+     * @return double - Term Frequency.
      */
     public double termFrequency(String w) {
-        // TODO change this
-        return 0.0;
+        if(contains(w)){
+            return (double) frequency(w) / totalNumOfWords();
+        } else {
+            return 0;
+        }
     }
 }

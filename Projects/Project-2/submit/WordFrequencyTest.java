@@ -19,10 +19,41 @@ public class WordFrequencyTest {
     }
 
     /**
-     * testOne() testing something
+     * Tests word getter.
+     * Expected "Hello"
      */
     @Test
     public void testOne() {
-        assertEquals("Word stored is wrong", "Hello", runner.getWord());
+        assertEquals("Hello", runner.getWord());
+    }
+    /**
+     * Tests count getter.
+     * Expected 1
+     */
+    @Test
+    public void testTwo() {
+        assertEquals(1, runner.getCount());
+    }
+    /**
+     * Tests increment.
+     * Expected 1 -> 2
+     */
+    @Test
+    public void testThree(){
+        assertEquals(1, runner.getCount());
+        runner.increment();
+        assertEquals(2, runner.getCount());
+    }
+    /**
+     * Tests equal.
+     * Expected True
+     */
+    @Test
+    public void testFour(){
+        WordFrequency runner2 = new WordFrequency("Hello");
+        assertEquals(runner2, runner);
+        assertTrue(runner2.equals("Hello"));
+        assertFalse(runner2.equals("World"));
+        assertFalse(runner2.equals(1));
     }
 }

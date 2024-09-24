@@ -2,7 +2,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * Description
+ * Class to test HashWords class.
  */
 public class HashWordsTest {
     // Object to be tested
@@ -19,11 +19,14 @@ public class HashWordsTest {
     }
 
     /**
-     * testOne() testing something
+     * Tests size of Hashtable
+     * Expected 10.
      */
     @Test
     public void testOne() {
-        assertEquals("Size of table is wrong",
-                10, runner.size());
+        assertEquals(10, runner.size());
     }
+    /**
+     * Tests
+     */
 }

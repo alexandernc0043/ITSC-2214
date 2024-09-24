@@ -6,7 +6,7 @@
 public class WordFrequency {
     // declare private variables here
     private String word;
-    private int count;
+    private int count = 1;
     /**
      * Description
      */
