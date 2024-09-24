@@ -55,7 +55,9 @@ public class HashWords {
      * @return frequency of w
      */
     public int frequency(String w) {
-        if(contains(w)) return frequency(w);
+        if(contains(w)){
+            if(words[hashKey(w)].getWord().equals(w)) return words[hashKey(w)].getCount();
+        }
         return 0;
     }
 
@@ -70,12 +72,10 @@ public class HashWords {
         if (words[hash] == null){
             words[hash] = new WordFrequency(w);
             uniqueWords++; // increment unique words
-
         }
         // if the word is not in the table add it
         else if(words[hash].getWord().equals(w)){
             words[hash].increment();
-
         }
         else {
             for(int i = hash + 1; i < size; i++){
@@ -93,6 +93,7 @@ public class HashWords {
                 if(words[i] == null) {
                     words[i] = new WordFrequency(w);
                     uniqueWords++; // increment unique words
+                    break;
                 }
             }
         }
@@ -104,8 +105,11 @@ public class HashWords {
      * @return boolean
      */
     public boolean contains(String w) {
-        for(WordFrequency wF : words)
-            if(wF.getWord().equals(w)) return true;
+        for(WordFrequency wf : words){
+            if(wf != null){
+                if(wf.getWord().equals(w)) return true;
+            }
+        }
         return false;
     }
 
@@ -124,7 +128,7 @@ public class HashWords {
     public int totalNumOfWords() {
         int sum = 0;
         for(WordFrequency wF : words){
-            sum += wF.getCount();
+            if(wF != null) sum += wF.getCount();
         }
         return sum;
     }
@@ -137,9 +141,11 @@ public class HashWords {
         String mostCommon = "";
         int mostCommonFreq = 0;
         for(WordFrequency wF : words){
-            if(wF.getCount() > mostCommonFreq){
-                mostCommon = wF.getWord();
-                mostCommonFreq = wF.getCount();
+            if(wF != null) {
+                if (wF.getCount() > mostCommonFreq) {
+                    mostCommon = wF.getWord();
+                    mostCommonFreq = wF.getCount();
+                }
             }
         }
         return mostCommon;
