@@ -42,6 +42,7 @@ public class HashWordsTest {
     @Test
     public void testThree(){
         assertEquals(1, runner.frequency("hello"));
+        assertEquals(2, runner.hashKey("hello"));
         assertEquals(0, runner.frequency("world"));
     }
     /**
