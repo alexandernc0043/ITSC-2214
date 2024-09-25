@@ -47,6 +47,8 @@ public class HashWords {
      */
     public int hashKey(String w) {
         int sum = 0;
+        if (w == null)
+            return 0;
         for (char c : w.toCharArray()) {
             sum += (int) c;
         }
@@ -92,7 +94,7 @@ public class HashWords {
          */
             int hash = hashKey(w);
             if (addIfContains(w)) return;
-            if (addIfNotContained(w, hash)) return;
+            if(addIfNotContained(w, hash)) return;
             reHash();
         }
     }
@@ -128,6 +130,7 @@ public class HashWords {
                 return true;
             }
         }
+        // if we cant add it
         return false;
     }
 
@@ -145,17 +148,19 @@ public class HashWords {
         // rehash words
         for (int i = 0; i < temp.length; i++) {
             // get new hash
-            int newHash = hashKey(temp[i].getWord());
-            // if words at index of newHash is null, assign it to temp[i]
-            if (words[newHash] == null) {
-                words[newHash] = temp[i];
-            }
-            // else find next empty
-            else {
-                for (int x = newHash + 1; x < words.length; x++) {
-                    if (words[x] == null) {
-                        words[x] = temp[i];
-                        break;
+            if(temp[i] != null){
+                int newHash = hashKey(temp[i].getWord());
+                // if words at index of newHash is null, assign it to temp[i]
+                if (words[newHash] == null) {
+                    words[newHash] = temp[i];
+                }
+                // else find next empty
+                else {
+                    for (int x = newHash + 1; x < words.length; x++) {
+                        if (words[x] == null) {
+                            words[x] = temp[i];
+                            break;
+                        }
                     }
                 }
             }
