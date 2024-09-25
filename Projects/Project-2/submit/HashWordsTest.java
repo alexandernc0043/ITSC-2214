@@ -1,4 +1,6 @@
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -43,53 +45,58 @@ public class HashWordsTest {
         assertEquals(10, runner.size());
         assertEquals(3, testRunner.size());
     }
+
     /**
      * Tests hashkey function.
      * Expected 2
      */
     @Test
-    public void testHashKey(){
+    public void testHashKey() {
         assertEquals(2, runner.hashKey("hello"));
         testRunner = new HashWords(10);
         assertEquals(0, testRunner.hashKey("bye"));
     }
+
     /**
      * Tests frequency getter.
      * Expected 1
      */
     @Test
-    public void testFrequency(){
+    public void testFrequency() {
         assertEquals(1, runner.frequency("hello"));
         assertEquals(2, runner.hashKey("hello"));
         assertEquals(0, runner.frequency("world"));
         assertEquals(2, testRunner.frequency("hello"));
         assertEquals(3, testRunner.frequency("world"));
-        assertEquals(4,testRunner.frequency("bye"));
+        assertEquals(4, testRunner.frequency("bye"));
         assertEquals(0, runner.frequency(null));
     }
+
     /**
      * Tests the contain method.
      */
     @Test
-    public void testContains(){
+    public void testContains() {
         assertTrue(runner.contains("hello"));
         assertFalse(runner.contains("world"));
     }
+
     /**
      * Tests the addWord() method.
      */
     @Test
-    public void testTotalNumWords(){
+    public void testTotalNumWords() {
         assertEquals(1, runner.totalNumOfWords());
         runner.addWord("world");
         assertEquals(2, runner.totalNumOfWords());
         assertEquals(9, testRunner.totalNumOfWords());
     }
+
     /**
      * Tests the uniqueWords getter.
      */
     @Test
-    public void testUniqueWords(){
+    public void testUniqueWords() {
         assertEquals(1, runner.numUniqueWordsInTable());
         runner.addWord("world");
         assertEquals(2, runner.numUniqueWordsInTable());
@@ -97,32 +104,35 @@ public class HashWordsTest {
         assertEquals(2, runner.numUniqueWordsInTable());
         assertEquals(3, testRunner.numUniqueWordsInTable());
     }
+
     /**
      * Tests the mostCommonWord method.
      */
     @Test
-    public void testMostCommonWord(){
+    public void testMostCommonWord() {
         assertEquals("hello", runner.mostCommonWord());
         runner.addWord("world");
         runner.addWord("world");
         assertEquals("world", runner.mostCommonWord());
-        assertEquals("bye",testRunner.mostCommonWord());
+        assertEquals("bye", testRunner.mostCommonWord());
     }
+
     /**
      * Tests the termFrequency method.
      */
     @Test
-    public void testTermFreq(){
-        assertEquals(((double) 2 /9), testRunner.termFrequency("hello"), 0.0);
-        assertEquals(((double) 3 /9), testRunner.termFrequency("world"), 0.0);
-        assertEquals(((double) 4 /9), testRunner.termFrequency("bye"), 0.0);
-        assertEquals(0.0,testRunner.termFrequency("a"), 0.0);
+    public void testTermFreq() {
+        assertEquals((double) 2 / 9, testRunner.termFrequency("hello"), 0.0);
+        assertEquals((double) 3 / 9, testRunner.termFrequency("world"), 0.0);
+        assertEquals((double) 4 / 9, testRunner.termFrequency("bye"), 0.0);
+        assertEquals(0.0, testRunner.termFrequency("a"), 0.0);
     }
+
     /**
-     * Test addWords()
+     * Tests addWords() method.
      */
     @Test
-    public void testAddWords(){
+    public void testAddWords() {
         runner = new HashWords(3);
         runner.addWord("a");
         runner.addWord("b");
@@ -136,8 +146,10 @@ public class HashWordsTest {
         runner = new HashWords(2);
         runner.addWord("dog");
         runner.addWord("god");
+        runner.addWord("dgo");
         assertEquals(1, runner.frequency("dog"));
         assertEquals(1, runner.frequency("god"));
+        assertEquals(1, runner.frequency("dgo"));
 
     }
 }
