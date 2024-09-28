@@ -113,6 +113,7 @@ public class HashWordsTest {
         assertEquals("hello", runner.mostCommonWord());
         runner.addWord("world");
         runner.addWord("world");
+        runner.addWord("world");
         assertEquals("world", runner.mostCommonWord());
         assertEquals("bye", testRunner.mostCommonWord());
     }
