@@ -1,8 +1,12 @@
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Description
+ * Class to test Word Frequency.
  */
 public class WordFrequencyTest {
     // Object to be tested
@@ -26,6 +30,7 @@ public class WordFrequencyTest {
     public void testOne() {
         assertEquals("Hello", runner.getWord());
     }
+
     /**
      * Tests count getter.
      * Expected 1
@@ -34,26 +39,27 @@ public class WordFrequencyTest {
     public void testTwo() {
         assertEquals(1, runner.getCount());
     }
+
     /**
      * Tests increment.
      * Expected 1 -> 2
      */
     @Test
-    public void testThree(){
+    public void testThree() {
         assertEquals(1, runner.getCount());
         runner.increment();
         assertEquals(2, runner.getCount());
     }
+
     /**
      * Tests equal.
-     * Expected True
      */
     @Test
-    public void testFour(){
+    public void testFour() {
         WordFrequency runner2 = new WordFrequency("Hello");
         assertEquals(runner2, runner);
         assertTrue(runner2.equals("Hello"));
-        assertTrue(runner2.equals(runner2));
+        assertEquals(runner2, runner2);
         assertFalse(runner2.equals("World"));
         assertFalse(runner2.equals(1));
     }

@@ -60,19 +60,22 @@ public class HashWords {
      */
     public int frequency(String w) {
         int hash = hashKey(w);
-        if (!contains(w)) {
+        int frequency = 0;
+        if (w == null) {
             return 0;
-        }
-        if (hashTable[hash] != null && hashTable[hash].getWord().equals(w)) {
+        } else if (!contains(w)) {
+            return 0;
+        } else if (hashTable[hash] != null && hashTable[hash].getWord().equals(w)) {
             return hashTable[hash].getCount();
         } else {
             for (int i = hash + 1; i < size; i++) {
                 if (hashTable[i] != null && hashTable[i].getWord().equals(w)) {
-                    return hashTable[i].getCount();
+                    frequency = hashTable[i].getCount();
+                    break;
                 }
             }
         }
-        return 0;
+        return frequency;
     }
 
     /**
@@ -144,7 +147,7 @@ public class HashWords {
             }
         }
     }
-    
+
     /**
      * Does this hash table contain this word (w)?
      * Returns true if the word is in the table, false otherwise.
@@ -203,7 +206,7 @@ public class HashWords {
     }
 
     /**
-     * Returns the term frequency of w (frequency(w) / totalNumOfWords)
+     * Returns the term frequency of w (frequency(w) / totalNumOfWords).
      *
      * @param w Word
      * @return double - Term Frequency.
