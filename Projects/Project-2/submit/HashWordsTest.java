@@ -63,12 +63,30 @@ public class HashWordsTest {
      */
     @Test
     public void testFrequency() {
+        // test if null
+        // test if we don't contain it
+        // test if its at where it should be
+        // test if contained but collision
+
+
         assertEquals(1, runner.frequency("hello"));
         assertEquals(2, runner.hashKey("hello"));
         assertEquals(0, runner.frequency("world"));
         assertEquals(2, testRunner.frequency("hello"));
         assertEquals(3, testRunner.frequency("world"));
-        assertEquals(4, testRunner.frequency("bye"));
+        assertEquals(0, testRunner.frequency("portal"));
+        runner = new HashWords(5);
+        runner.addWord("cherry");
+        assertEquals(1, runner.frequency("cherry"));
+        assertEquals(0, runner.frequency("apple"));
+        assertEquals(0, runner.frequency(null));
+        runner.addWord("banana");
+        runner.addWord("pear");
+        assertEquals(1, runner.frequency("banana"));
+        assertEquals(0, runner.frequency("peach"));
+        assertEquals(0, runner.frequency("mango"));
+        testRunner = new HashWords(3);
+        assertEquals(0, testRunner.frequency("hello"));
         assertEquals(0, runner.frequency(null));
     }
 
@@ -79,6 +97,7 @@ public class HashWordsTest {
     public void testContains() {
         assertTrue(runner.contains("hello"));
         assertFalse(runner.contains("world"));
+        assertFalse(runner.contains(null));
     }
 
     /**
@@ -135,6 +154,7 @@ public class HashWordsTest {
     @Test
     public void testAddWords() {
         runner = new HashWords(3);
+        runner.addWord(null);
         runner.addWord("a");
         runner.addWord("b");
         runner.addWord("c");
@@ -144,13 +164,16 @@ public class HashWordsTest {
         assertEquals(9, runner.size());
         assertEquals(6, runner.numUniqueWordsInTable());
         assertEquals(6, runner.totalNumOfWords());
-        runner = new HashWords(2);
+        runner = new HashWords(3);
         runner.addWord("dog");
         runner.addWord("god");
         runner.addWord("dgo");
         assertEquals(1, runner.frequency("dog"));
         assertEquals(1, runner.frequency("god"));
         assertEquals(1, runner.frequency("dgo"));
-
+        runner.addWord("dog");
+        runner.addWord("god");
+        runner.addWord("dgo");
+        runner.addWord("aaa");
     }
 }
