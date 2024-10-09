@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * TODO Write a one-sentence summary of your class here.
  * TODO Follow it with additional details about its purpose, what abstraction

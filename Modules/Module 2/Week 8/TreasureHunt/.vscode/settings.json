@@ -1,0 +1,23 @@
+{
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": ["lib/*.jar"],
+    "java.project.sourcePaths": [
+        "submit",
+        "src",
+        "misc"
+    ],
+    "java.checkstyle.configuration": "${workspaceFolder}/lib/Checkstyle.xml",
+    "web-CAT.submitURLs": [
+        "https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/wa/assignments/eclipse?institution=UNCC"
+    ],
+    "workbench.colorTheme": "Visual Studio Light",
+    "editor.fontSize": 16,
+    "testing.countBadge": "failed",
+    "testing.displayedCoveragePercent": "statement",
+    "testing.showCoverageInExplorer": true,
+    "terminal.integrated.fontSize": 14,
+    "[Log]": {
+        "editor.fontSize": 14
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
+}
