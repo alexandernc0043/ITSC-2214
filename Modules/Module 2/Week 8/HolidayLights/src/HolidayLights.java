@@ -89,7 +89,7 @@ class LightChain {
         node<String> nodeBefore;
         node<String> nodeAfter;
         while (current != null) {
-            if (current.getData() == before) {
+            if (current.getData() == before && current.getNext().getData() == after) {
                 nodeBefore = current;
                 nodeAfter = nodeBefore.getNext();
                 nodeBefore.setNext(new node<String>(newColor, nodeAfter));
