@@ -124,7 +124,8 @@ public class TreasureHunt {
         //Do nothing, when the treasure map (doubly linked list) is empty
         if (this.first == null)
             return;
-
+        if(this.last == null)
+            return;
         //The treasure map is not empty
         //Walk from the first location node through the second last node 
         //by using the next reference variable of each node
@@ -133,11 +134,14 @@ public class TreasureHunt {
             System.out.print(cur.toString() + "->");
             cur = cur.getNext();
         }
-
         //TODO   Traverse from the last node through the 
         //first node by using the prev reference variable 
         //of each node and print. Refer to the previous while loop
- 
+        cur = this.last;
+        while (cur.getPrev() != null) {
+            System.out.print(cur.toString() + "<-");
+            cur = cur.getPrev();
+        }
         System.out.println();
     }
 
