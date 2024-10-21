@@ -30,8 +30,12 @@ public class LinkedQueueTest {
     @Test
     public void testEnqueue() {
         //TODO test your enqueue method of LinkedQueue<Integer>
-
-        
+        queue.enqueue(4);
+        assertEquals(queue.frontValue(), Integer.valueOf(4));
+        queue.enqueue(5);
+        assertEquals(queue.frontValue(), Integer.valueOf(4));
+        queue.clear();
+        assertNull(queue.frontValue());
 
     }
 
@@ -49,10 +53,10 @@ public class LinkedQueueTest {
      * Test of dequeue method, of class LinkedQueue.
      * Test the dequeue() when the queue is empty.
      */
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testDequeue1() {
         //TODO test your dequeue method of LinkedQueue<Integer>
-
+        queue.dequeue();
         
     }
     /**

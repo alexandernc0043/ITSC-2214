@@ -54,11 +54,11 @@ public class LinkedStackTest {
     /**
      * Test of pop method, of class LinkedStack.
      */
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testPop1() {
         //TODO test your pop method of LinkedQueue<Integer> 
         //when the stack is empty
-
+        stack.pop();
     }
     /**
      * Test of pop method, of class LinkedStack.
@@ -66,9 +66,11 @@ public class LinkedStackTest {
     @Test
     public void testPop2() {
         //TODO test your pop method of LinkedQueue<Integer>
-        //when the stack is not empty
-        
-        
+        stack.push(1);
+        assertEquals(1,stack.size());
+        int popped = stack.pop();
+        assertEquals(1,popped);
+        assertTrue(stack.isEmpty());
     }
     
     /**

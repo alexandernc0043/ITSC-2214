@@ -43,19 +43,16 @@ public class LinkedQueue<T> implements QueueADT<T> {
          * if queue is not empty, insert new node in 
          * the rear of the queue
         **/
+        Node<T> newNode = new Node<>(target, null);
         if(isEmpty()){
-            front = new Node<T>(target, null);
+            front = newNode;
             rear = front;
-            size++;
         }
         else {
-            Node<T> newNode = new Node<>(target, null);
-            rear.setNext(new Node<T>(target,null));
+            rear.setNext(newNode);
             rear = newNode;
-            size++;
         }
-
-
+        size++;
         return true;
     }
     
@@ -76,10 +73,11 @@ public class LinkedQueue<T> implements QueueADT<T> {
             Node<T> removedNode = front;
             front = front.getNext();
             size--;
+            if(front == null){
+                rear = null;
+            }
             return removedNode.getData();
         }
-
-
     }
     
     /**
@@ -100,8 +98,11 @@ public class LinkedQueue<T> implements QueueADT<T> {
     @Override
     public T frontValue() {
         /**TODO return element in the frontmost position of the array **/
-
-        return front.getData();
+        if(isEmpty()){
+            return null;
+        } else {
+            return front.getData();
+        }
 
     }
     

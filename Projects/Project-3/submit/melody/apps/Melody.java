@@ -124,10 +124,14 @@ public class Melody {
      */
     public boolean reverse() {
         // TODO: write this method
-
-
-
-
+        LinkedStack<Note> reversed = new LinkedStack<>();
+        while(!song.isEmpty()){
+            reversed.push(song.dequeue());
+        }
+        while (!reversed.isEmpty()){
+            song.enqueue(reversed.pop());
+        }
+        return true;
     }
     
     /**

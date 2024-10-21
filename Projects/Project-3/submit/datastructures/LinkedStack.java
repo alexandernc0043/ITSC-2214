@@ -14,7 +14,7 @@ public class LinkedStack<T> implements StackADT<T> {
     private Node<T> top;
 
     /* size: the number of elements in the stack */
-    private int size;
+    private int size = 0;
 
     /**
      * Constructor.
@@ -22,9 +22,7 @@ public class LinkedStack<T> implements StackADT<T> {
     public LinkedStack() {
         //TODO Instantiate the linked list-based data 
         //collection
-        top = new Node<>(null);
-        size = 0;
-        
+        top = null;
     }
 
     /**
@@ -35,12 +33,9 @@ public class LinkedStack<T> implements StackADT<T> {
     public boolean push(T target) {
         //TODO Add target to the top of the stack
         //(represented by the top reference node)
-        if(isEmpty()){
-            top = new Node<>(target);
-        } else {
-            top.setNext(new Node<>(target));
-            top = top.getNext();
-        }
+        Node<T> newNode = new Node<T>(target);
+        newNode.setNext(top);
+        top = newNode;
         size++;
         return true;
     }
@@ -57,8 +52,9 @@ public class LinkedStack<T> implements StackADT<T> {
         if(isEmpty()){
             throw new RuntimeException("The stack is empty");
         } else {
-            Node<T> removing = top.getNext();
+            Node<T> removing = top;
             top = top.getNext();
+            size--;
             return removing.getData();
         }
     }
@@ -73,8 +69,11 @@ public class LinkedStack<T> implements StackADT<T> {
         //not modify the stack.
         //Corresponding to return the element in the node 
         //referred by the reference top
-
-        return top.getData();
+        if(isEmpty()){
+            return null;
+        } else {
+            return top.getData();
+        }
     }
 
     /**
@@ -85,7 +84,7 @@ public class LinkedStack<T> implements StackADT<T> {
     @Override
     public boolean isEmpty() {
         //Evaluate whether the stack is empty
-        return size == 0;
+        return size  == 0;
     }
 
     /**
