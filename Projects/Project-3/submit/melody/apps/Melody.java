@@ -20,16 +20,17 @@ public class Melody {
     final static int MAX_OCTAVE = 10;
     final static int MAX_REPEATS = 3;
     final static int ARRAY_BLOCKING_QUEUE_INIT_CAPACITY = 100;
-    
+
     /**
-     * Initializes your melody to store the passed in QueueADT of Notes. 
-     * @param song A Note queue
-     * @param title Song title
+     * Initializes your melody to store the passed in QueueADT of Notes.
+     *
+     * @param song    A Note queue
+     * @param title   Song title
      * @param artists Song composers
      * @param lineNum Number of basic notes (not counting repeats)
      */
-    public Melody(QueueADT<Note> song, 
-            String title, String artists, int lineNum) {
+    public Melody(QueueADT<Note> song,
+                  String title, String artists, int lineNum) {
         // TODO: write this constructor
         this.song = song;
         this.totalDuration = 0;
@@ -39,24 +40,24 @@ public class Melody {
     }
 
     /**
-     * In this method you should play your melody so that it can 
-     * be heard on the computer's speakers. Essentially this 
-     * consists of calling the play method on each Note in your 
+     * In this method you should play your melody so that it can
+     * be heard on the computer's speakers. Essentially this
+     * consists of calling the play method on each Note in your
      * array. The notes should be played from the beginning
-     * of the list to the end, unless there are notes that 
-     * are marked as being part of a repeated section. If a 
-     * series of notes represents a repeated section, that sequence 
-     * is played twice. For example, in the diagram below, suppose 
-     * the notes at indexes 3, 5, 9, and 12 all indicate that they 
+     * of the list to the end, unless there are notes that
+     * are marked as being part of a repeated section. If a
+     * series of notes represents a repeated section, that sequence
+     * is played twice. For example, in the diagram below, suppose
+     * the notes at indexes 3, 5, 9, and 12 all indicate that they
      * are start/end points of repeated sections (their isRepeat
-     * method returns true). In this case, the correct sequence of 
-     * note indexes to play is 0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 8, 
-     * 9,10, 11, 12, 9, 10, 11, 12, 13. Note that notes at indexes 
+     * method returns true). In this case, the correct sequence of
+     * note indexes to play is 0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 8,
+     * 9,10, 11, 12, 9, 10, 11, 12, 13. Note that notes at indexes
      * 3-5 and 9-12 are played twice in our example.
-     * This method should not modify the state of your array. 
-     * Also, it should be possible to call play multiple times 
+     * This method should not modify the state of your array.
+     * Also, it should be possible to call play multiple times
      * and get the same result each time.
-     * 
+     *
      * @return boolean Is it successful reversing the melody
      */
     public boolean play() {
@@ -108,43 +109,44 @@ public class Melody {
     }
 
     /**
-     * Reverses the order of notes in the song, so that future 
-     * calls to the play methods will play the notes in the 
-     * opposite of the order they were in before reverse was 
-     * called. For example, a song containing notes A, F, G, 
-     * then B would become B, G, F, A after reversing. 
-     * This function just reverse the order of notes 
+     * Reverses the order of notes in the song, so that future
+     * calls to the play methods will play the notes in the
+     * opposite of the order they were in before reverse was
+     * called. For example, a song containing notes A, F, G,
+     * then B would become B, G, F, A after reversing.
+     * This function just reverse the order of notes
      * and it will not play the reversed song.
      * Only when users choose to play, the notes in queue will
      * be played out.
-     * You may use one temporary StackADT or one temporary 
-     * QueueADT to help you solve this problem. 
-     * 
+     * You may use one temporary StackADT or one temporary
+     * QueueADT to help you solve this problem.
+     *
      * @return boolean Is it successful reversing the melody
      */
     public boolean reverse() {
         // TODO: write this method
-        LinkedStack<Note> reversed = new LinkedStack<>();
-        while(!song.isEmpty()){
-            reversed.push(song.dequeue());
+        if (this.song == null || this.song.isEmpty()) {
+            return false;
         }
-        while (!reversed.isEmpty()){
-            song.enqueue(reversed.pop());
+        for (int i = 0; i < this.song.size(); i++) {
+            Note note = this.song.dequeue();
+            this.song.enqueue(note);
         }
         return true;
     }
-    
+
     /**
      * This method is optional.
-     * You are not required to write a toString method in your 
-     * Melody class, but if you do, it will be called by our Main 
+     * You are not required to write a toString method in your
+     * Melody class, but if you do, it will be called by our Main
      * program when any operations are performed. For example, after
-     * loading a song from a file, or reversing the song, or 
-     * changing duration or octaves, the Main program prints out 
-     * the toString representation of your Melody on the console. 
-     * If you do write a toString, you can return any string you 
-     * want. This may be useful for debugging. Recall that 
+     * loading a song from a file, or reversing the song, or
+     * changing duration or octaves, the Main program prints out
+     * the toString representation of your Melody on the console.
+     * If you do write a toString, you can return any string you
+     * want. This may be useful for debugging. Recall that
      * Arrays.toString returns a string representation of an array
+     *
      * @return Song notes
      */
     public String toString() {
@@ -153,7 +155,7 @@ public class Melody {
         int numOfNotes = this.song.size();
         Note[] notes = new Note[numOfNotes];
         Note note;
-        for (int i = 0; i < numOfNotes; i++){
+        for (int i = 0; i < numOfNotes; i++) {
             note = this.song.dequeue();
             notes[i] = note;
             this.song.enqueue(note);
