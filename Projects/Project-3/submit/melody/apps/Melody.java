@@ -1,7 +1,6 @@
 package melody.apps;
 
 import itsc2214.QueueADT;
-import itsc2214.StackADT;
 import datastructures.*;
 import melody.audio.Note;
 
