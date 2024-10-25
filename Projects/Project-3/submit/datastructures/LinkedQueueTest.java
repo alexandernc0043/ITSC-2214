@@ -57,7 +57,6 @@ public class LinkedQueueTest {
     public void testDequeue1() {
         //TODO test your dequeue method of LinkedQueue<Integer>
         queue.dequeue();
-        
     }
     /**
      * Test of dequeue method, of class LinkedQueue.
@@ -66,9 +65,12 @@ public class LinkedQueueTest {
     @Test
     public void testDequeue2() {
         //TODO test your dequeue method of LinkedQueue<Integer>
+        assertTrue(queue.isEmpty());
+        queue.enqueue(1);
+        assertEquals(1, queue.size());
+        queue.dequeue();
+        assertTrue(queue.isEmpty());
 
-        
-        
     }
 
     /**

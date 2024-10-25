@@ -123,10 +123,9 @@ public class Melody {
      * @return boolean Is it successful reversing the melody
      */
     public boolean reverse() {
-        // TODO: write this method
-        if (this.song == null || this.song.isEmpty()) {
+        if (this.song == null)
             return false;
-        }
+        // TODO: write this method
         for (int i = 0; i < this.song.size(); i++) {
             Note note = this.song.dequeue();
             this.song.enqueue(note);

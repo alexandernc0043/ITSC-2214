@@ -37,8 +37,7 @@ public class LinkedStackTest {
     @Test
     public void testTopValue1() throws Exception {
         //TODO peek on the top of an empty stack
-
-        
+        assertNull(stack.topValue());
     }
 
     /**
@@ -47,7 +46,12 @@ public class LinkedStackTest {
     @Test
     public void testTopValue2() {
         //TODO peek on the top of an non-empty stack
-
+        stack.push(1);
+        int top = stack.topValue();
+        assertEquals(1, top);
+        stack.push(2);
+        top = stack.topValue();
+        assertNotEquals(1, top);
         
     }
     
