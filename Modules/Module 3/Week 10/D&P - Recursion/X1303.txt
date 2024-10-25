@@ -1,0 +1,4 @@
+The base case in a recursive function is
+
+the case where there is no additional recursive call.
+

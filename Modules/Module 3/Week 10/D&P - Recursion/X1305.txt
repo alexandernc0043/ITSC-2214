@@ -1,0 +1,4 @@
+The anatomy of recursive function has five steps/parts. Which of them is an example of "consume what you produce"?
+
+returning a value in the base case that is used in the recursive step
+

@@ -1,0 +1,3 @@
+True or False: Under no circumstances, we should use recursion as it is always horribly inefficient always leading to stack overflows.
+
+False
