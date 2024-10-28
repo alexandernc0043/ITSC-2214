@@ -67,7 +67,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         * Do not forget to change the size
         **/
         if(isEmpty()){
-            throw new RuntimeException("The queue is empty");
+            return null;
         }
         else {
             Node<T> removedNode = front;

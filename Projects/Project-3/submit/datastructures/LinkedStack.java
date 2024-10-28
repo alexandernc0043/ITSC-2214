@@ -50,7 +50,7 @@ public class LinkedStack<T> implements StackADT<T> {
         //Corresponding to retrieve the top node and reset 
         //the top reference to the reference of its next node
         if(isEmpty()){
-            throw new RuntimeException("The stack is empty");
+            return null;
         } else {
             Node<T> removing = top;
             top = top.getNext();

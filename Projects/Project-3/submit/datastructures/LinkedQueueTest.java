@@ -51,24 +51,16 @@ public class LinkedQueueTest {
     
     /**
      * Test of dequeue method, of class LinkedQueue.
-     * Test the dequeue() when the queue is empty.
-     */
-    @Test(expected = RuntimeException.class)
-    public void testDequeue1() {
-        //TODO test your dequeue method of LinkedQueue<Integer>
-        queue.dequeue();
-    }
-    /**
-     * Test of dequeue method, of class LinkedQueue.
-     * Test the dequeue() when the queue is empty.
      */
     @Test
-    public void testDequeue2() {
+    public void testDequeue() {
         //TODO test your dequeue method of LinkedQueue<Integer>
         assertTrue(queue.isEmpty());
+        assertNull(queue.dequeue());
         queue.enqueue(1);
         assertEquals(1, queue.size());
-        queue.dequeue();
+        int value = queue.dequeue();
+        assertEquals(1, value);
         assertTrue(queue.isEmpty());
 
     }
