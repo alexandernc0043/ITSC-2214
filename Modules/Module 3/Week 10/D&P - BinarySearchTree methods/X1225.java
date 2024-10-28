@@ -1,18 +1,18 @@
-class Binary{
-  private BinaryNode<E> root ... // already initialized
-
-  public void add(E node)
-  {
-    if (node == null)
-      return; // do nothing
-    else if (root == null)    // first time, just set the root
-      root = new BinaryNode<E>(node);
-    else
-      add(root, node);  // calls your method below
-  }
-}
-//
 BinaryNode<E> add(BinaryNode<E> treeRoot, E node)
 {
-  
+  if(node.compareTo(treeRoot.getValue()) <= 0){
+    if(treeRoot.getLeft() == null){
+      treeRoot.setLeft(new BinaryNode(node));  
+    } else {
+      add(treeRoot.getLeft(), node);
+    }
+  }
+  else {
+    if(treeRoot.getRight() == null){
+      treeRoot.setRight(new BinaryNode(node));  
+    } else {
+      add(treeRoot.getRight(), node);
+    }
+  }
+  return treeRoot;
 }
