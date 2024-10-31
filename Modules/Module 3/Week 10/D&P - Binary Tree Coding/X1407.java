@@ -1,6 +1,7 @@
 public boolean isLeaf(E[] tree, int node)
 {
-    if(node < tree.length) return false;
-    if((tree[(node * 2 + 1)] == null) && (tree[(node * 2 + 2)] == null)) return false;
-    return true;
+    E left = tree[(node * 2) + 1];
+    E right = tree[(node * 2) + 2];
+    if(left == null && right == null) return true;
+    return false;
 }
