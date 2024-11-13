@@ -28,6 +28,16 @@ public class ExpressionTreeTest {
     @Test
     public void testParse() {
         assertTrue(runner.parse());
-        
+
+    }
+    /**
+     * getRoot Test
+     */
+    @Test
+    public void testGetRoot() {
+        assertNull(runner.getRoot());
+        runner.parse();
+        assertNotNull(runner.getRoot());
+        assertEquals("+", runner.getRoot());
     }
 }
