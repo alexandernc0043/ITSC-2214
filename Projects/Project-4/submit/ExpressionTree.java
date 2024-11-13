@@ -22,9 +22,9 @@ public class ExpressionTree {
     private boolean parsed = false;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param String postfix notaiton
+     * @param postfix notation.
      */
     public ExpressionTree(String postfix) {
         this.postfix = postfix;
@@ -43,15 +43,18 @@ public class ExpressionTree {
         if (postfix == null) {
             return false;
         }
-        String[] split = postfix.split("\\s+");
+        String[] split = postfix.split("\\s+"); // Splits the string (postfix) by spaces "\\s+"
         for (String str : split) {
-            if (isNumber(str)) {
+            // if its a number
+            if (isNumber(str)) { 
                 BinaryNode<String> node = new BinaryNode<String>(str, null, null);
                 stack.push(node);
-            } else if (isOperator(str) && stack.size() == 2) {
-                BinaryNode<String> right = stack.pop();
-                BinaryNode<String> left = stack.pop();
-                BinaryNode<String> node = new BinaryNode<String>(str, left, right);
+            // if its an operation and the stack size is 2
+            } else if (isOperator(str) && stack.size() == 2) { 
+                BinaryNode<String> right = stack.pop(); // get the right value
+                BinaryNode<String> left = stack.pop(); // get the left value
+                // make a new node that has root, left, and right.
+                BinaryNode<String> node = new BinaryNode<String>(str, left, right); 
                 stack.push(node);
             } else {
                 return false;
@@ -63,13 +66,14 @@ public class ExpressionTree {
 
     /**
      * Determines if the string is a number.
-     * 
-     * @param String str
+     * Takes string as input and will throw an,
+     * NumberFormatException if the string is not an integer.
+     * @param str Thing to evaluate.
      * @return boolean is a number
      */
-    boolean isNumber(String str) {
+    private boolean isNumber(String str) {
         try {
-            Integer.parseInt(str);
+            Integer.parseInt(str); 
             return true;
         } catch (NumberFormatException nfe) {
             return false;
@@ -79,11 +83,13 @@ public class ExpressionTree {
     /**
      * Determines if the string is a operator.
      * 
-     * @param String str
+     * @param str Thing to evaluate
      * @return boolean is a operator
      */
-    boolean isOperator(String str) {
-        return Objects.equals(str, "+") || Objects.equals(str, "-") || Objects.equals(str, "*")
+    private boolean isOperator(String str) {
+        return Objects.equals(str, "+")
+                || Objects.equals(str, "-")
+                || Objects.equals(str, "*")
                 || Objects.equals(str, "/");
     }
 
@@ -95,7 +101,7 @@ public class ExpressionTree {
      * @return BinaryNode<String> root
      */
     public BinaryNode<String> getRoot() {
-        if (!parsed || !parse()) {
+        if (!parsed) {
             return null;
         }
         return stack.peek();
@@ -104,17 +110,44 @@ public class ExpressionTree {
     /**
      * Method evaluates the tree stored internally and returns an integer
      * representing the value of the expression.
-     * The expression should support addition (+), multiplication (*), subtraction
-     * (-) and division(/).
+     * The expression should support addition (+), multiplication (*),
+     * subtraction (-) and division (/).
      * 
      * @throws ArithmeticException (Divide by 0)
+     * @return int evaluated the equation.
      */
     public int evaluate() throws ArithmeticException {
-        try {
-            return 0; // TODO
-        } catch (Exception e) {
-            throw new ArithmeticException(e.getMessage());
+
+        Stack<String> stack = new Stack<>();
+        String[] split = postfix.split("\\s+");
+        for (String str : split) {
+            if (isOperator(str)) {
+                int right = Integer.parseInt(stack.pop());
+                int left = Integer.parseInt(stack.pop());
+                int value = 0;
+                switch (str) {
+                    case "+":
+                        value = left + right;
+                        break;
+                    case "-":
+                        value = left - right;
+                        break;
+                    case "*":
+                        value = left * right;
+                        break;
+                    case "/":
+                        if (left == 0 && right == 0) {
+                            throw new ArithmeticException("Divide by zero exception.");
+                        }
+                        value = (int) left / (int) right;
+                        break;
+                }
+                stack.push(String.valueOf(value));
+            } else {
+                stack.push(str);
+            }
         }
+        return Integer.valueOf(stack.pop());
     }
 
     /**
@@ -127,16 +160,18 @@ public class ExpressionTree {
      * @return String infix notation.
      */
     public String infixNotation() {
-        BinaryNode<String> root = getRoot();
-        if (root == null)
-            return "";
-        if (root.getLeft() == null && root.getRight() == null)
-            return root.getValue();
-        /*
-         * String left = infixNotation(root.getLeft());
-         * String right = infixNotation(root.getRight());
-         * return "(" + left + " " + root.getValue() + " " + right + ")";
-         */
-        return " "; // TODO
+        Stack<String> infixStack = new Stack<>();
+        String[] split = postfix.split("\\s+");
+        for (String str : split) {
+            if (isOperator(str)) {
+                String right = infixStack.pop();
+                String left = infixStack.pop();
+                String infix = "(" + left + " " + str + " " + right + ")"; // (left operator right)
+                infixStack.push(infix);
+            } else {
+                infixStack.push(str);
+            }
+        }
+        return infixStack.pop();
     }
 }
