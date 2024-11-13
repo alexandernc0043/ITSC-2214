@@ -10,7 +10,7 @@ public class ExpressionTreeTest {
      * object in each of your tests after reinitializing (new)
      * in the setup() method below.
      */
-    private Project runner;
+    private ExpressionTree runner;
 
     /**
      * setup() method, runs before each test method below.
@@ -19,17 +19,15 @@ public class ExpressionTreeTest {
      */
     @Before
     public void setup() {
-        runner = new Project();
+        runner = new ExpressionTree("3 4 +");
     }
 
     /**
-     * testAdding() testing the only method.
+     * Parse Test
      */
     @Test
-    public void testAdding() {
-        // Test 1
-        assertEquals("Result of the addition is wrong", 15, runner.add5(10));
-        // Another test
-        assertEquals("Adding negative values is wrong", 0, runner.add5(-5));
+    public void testParse() {
+        assertTrue(runner.parse());
+        
     }
 }

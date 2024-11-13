@@ -1,4 +1,6 @@
 import itsc2214.*;
+
+import java.util.Objects;
 import java.util.Stack;
 /**
  * TODO Write a one-sentence summary of your class here.
@@ -10,7 +12,7 @@ import java.util.Stack;
  */
 public class ExpressionTree {
     private String postfix = null;
-    private Stack<BinaryNode<String>> stack;
+    private Stack<BinaryNode<String>> stack = new Stack<>();
     private boolean parsed = false;
     public ExpressionTree(String postfix) {
         this.postfix = postfix;
@@ -24,7 +26,7 @@ public class ExpressionTree {
             if (isNumber(str)) {
                 BinaryNode<String> node = new BinaryNode<String>(str, null, null);
                 stack.push(node);
-            } else if (str == "+" || str == "*" || str == "/" || str == "-" && stack.size() == 2) {
+            } else if (isOperator(str) && stack.size() == 2) {
                 BinaryNode<String> left = stack.pop();
                 BinaryNode<String> right = stack.pop();
                 BinaryNode<String> node = new BinaryNode<String>(str, left, right);
@@ -38,13 +40,16 @@ public class ExpressionTree {
     }
 
     boolean isNumber(String str) {
-        try{
+        try {
             Integer.parseInt(str);
             return true;
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    boolean isOperator(String str) {
+        return Objects.equals(str, "+") || Objects.equals(str, "-") || Objects.equals(str, "*") || Objects.equals(str, "/");
     }
 
     public BinaryNode<String> getRoot() {
