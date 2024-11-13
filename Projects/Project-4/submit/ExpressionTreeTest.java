@@ -2,7 +2,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import itsc2214.*; // not needed now, but you might in your projects
 
-public class ProjectTest {
+public class ExpressionTreeTest {
 
     /**
      * runner - known as the "test runner" object, this is the
