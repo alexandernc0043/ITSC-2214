@@ -119,6 +119,10 @@ public class ExpressionTreeTest {
 
         runner = new ExpressionTree("10 5 -");
         assertEquals(0, runner.evaluate());
+
+        runner = new ExpressionTree("2 2 /");
+        runner.parse();
+        assertEquals(1, runner.evaluate());
     }
     
     /**
@@ -126,7 +130,7 @@ public class ExpressionTreeTest {
      */
     @Test(expected = ArithmeticException.class)
     public void testEvaluateTwo() {
-        runner = new ExpressionTree("0 0 /");
+        runner = new ExpressionTree("0 0 /"); 
         runner.parse();
         runner.evaluate();
     }

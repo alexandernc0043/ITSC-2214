@@ -19,7 +19,7 @@ public class ExpressionTree {
 
     private String postfix = null;
     private BinaryNode<String> root;
-    
+
     private boolean parsed = false;
 
     /**
@@ -76,12 +76,13 @@ public class ExpressionTree {
      * Determines if the string is a number.
      * Takes string as input and will throw an,
      * NumberFormatException if the string is not an integer.
+     * 
      * @param str Thing to evaluate.
      * @return boolean is a number
      */
     private boolean isNumber(String str) {
         try {
-            Integer.parseInt(str); 
+            Integer.parseInt(str);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
@@ -124,7 +125,7 @@ public class ExpressionTree {
      * @throws ArithmeticException (Divide by 0)
      * @return int evaluated the equation.
      */
-    public int evaluate() throws ArithmeticException {
+    public int evaluate() /* throws ArithmeticException */ {
         if (!parsed)
             return 0;
         Stack<String> stack = new Stack<>();
