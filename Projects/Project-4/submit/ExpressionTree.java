@@ -1,6 +1,5 @@
 import itsc2214.*;
 
-import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -62,7 +61,9 @@ public class ExpressionTree {
                 return false;
             }
         }
-        if (stack.size() > 1) {
+        if (stack.size() > 1) { // if stack is greater then 1 make a new node
+            // With left side null.
+            // And with right side not null.
             BinaryNode<String> right = stack.pop();
             BinaryNode<String> root = stack.pop();
             stack.push(new BinaryNode<String>(root.getValue(), null, right));
@@ -81,12 +82,7 @@ public class ExpressionTree {
      * @return boolean is a number
      */
     private boolean isNumber(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
+        return str.matches("[0-9]+");
     }
 
     /**
@@ -96,10 +92,7 @@ public class ExpressionTree {
      * @return boolean is a operator
      */
     private boolean isOperator(String str) {
-        return Objects.equals(str, "+")
-                || Objects.equals(str, "-")
-                || Objects.equals(str, "*")
-                || Objects.equals(str, "/");
+        return str.matches("[*/+-]");
     }
 
     /**
@@ -125,39 +118,44 @@ public class ExpressionTree {
      * @throws ArithmeticException (Divide by 0)
      * @return int evaluated the equation.
      */
-    public int evaluate() /* throws ArithmeticException */ {
+    public int evaluate() throws ArithmeticException {
         if (!parsed)
             return 0;
-        Stack<String> stack = new Stack<>();
-        String[] split = postfix.split("\\s+");
-        for (String str : split) {
-            if (isOperator(str)) {
-                int right = Integer.parseInt(stack.pop());
-                int left = Integer.parseInt(stack.pop());
-                int value = 0;
-                switch (str) {
-                    case "+":
-                        value = left + right;
-                        break;
-                    case "-":
-                        value = left - right;
-                        break;
-                    case "*":
-                        value = left * right;
-                        break;
-                    case "/":
-                        if (right == 0) {
-                            throw new ArithmeticException("Divide by zero exception.");
-                        }
-                        value = (int) left / (int) right;
-                        break;
-                }
-                stack.push(String.valueOf(value));
-            } else {
-                stack.push(str);
-            }
+        return traverse(root);
+    }
+
+    /**
+     * Travseres the node / tree its given and returns the evaluation, used in
+     * evaluate().
+     * 
+     * @param node BinaryNode<String>
+     * @return int evaluted.
+     */
+    public int traverse(BinaryNode<String> node) {
+        if (node.getLeft() == null && node.getRight() == null) {
+            return Integer.parseInt(node.getValue());
         }
-        return Integer.valueOf(stack.pop());
+        int left = traverse(node.getLeft());
+        int right = traverse(node.getRight());
+        String root = node.getValue();
+        int value = 0;
+        switch (root) {
+            case "+":
+                value = left + right;
+                break;
+            case "-":
+                value = left - right;
+                break;
+            case "*":
+                value = left * right;
+                break;
+            case "/":
+                if (right == 0)
+                    throw new ArithmeticException("Divide by zero error.");
+                value = left / right;
+                break;
+        }
+        return value;
     }
 
     /**
@@ -171,19 +169,24 @@ public class ExpressionTree {
      */
     public String infixNotation() {
         if (!parsed)
-            return "";
-        Stack<String> infixStack = new Stack<>();
-        String[] split = postfix.split("\\s+");
-        for (String str : split) {
-            if (isOperator(str)) {
-                String right = infixStack.pop();
-                String left = infixStack.pop();
-                String infix = "(" + left + " " + str + " " + right + ")"; // (left operator right)
-                infixStack.push(infix);
-            } else {
-                infixStack.push(str);
-            }
+            return null; // if not parsed return null.
+        return infixNotationMaker(root);
+    }
+    
+    /**
+     * Makes infix notation using recursion on the tree created from the parse method.
+     * @param node BinaryNode<String>
+     * @return String infix
+     */
+    public String infixNotationMaker(BinaryNode<String> node) {
+        String root = node.getValue();
+        if (node.getLeft() == null && node.getRight() == null) {
+            return root;
         }
-        return infixStack.pop();
+        String left = infixNotationMaker(node.getLeft());
+        String right = infixNotationMaker(node.getRight());
+
+        return "(" + left + " " + root + " " + right + ")";
+
     }
 }

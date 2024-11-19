@@ -1,4 +1,7 @@
 import org.junit.*;
+
+import itsc2214.BinaryNode;
+
 import static org.junit.Assert.*;
 /**
  * Class to test ExpressionTree.
@@ -87,7 +90,7 @@ public class ExpressionTreeTest {
         assertEquals("((9 - 5) + 2)", runner.infixNotation());
 
         runner = new ExpressionTree("1 2 3 +");
-        assertEquals("", runner.infixNotation());
+        assertNull(runner.infixNotation());
     }
     /**
      * Test evaluate.
@@ -130,8 +133,20 @@ public class ExpressionTreeTest {
      */
     @Test(expected = ArithmeticException.class)
     public void testEvaluateTwo() {
-        runner = new ExpressionTree("0 0 /"); 
+        runner = new ExpressionTree("0 0 /");
         runner.parse();
         runner.evaluate();
+    }
+    
+    /**
+     * Tests the traverse method.
+     */
+    @Test
+    public void testTraverse() {
+        BinaryNode<String> testNode = new BinaryNode<String>("10");
+        runner = new ExpressionTree("10");
+        runner.parse();
+        assertEquals(10, runner.traverse(testNode));
+        assertEquals(10, runner.evaluate());
     }
 }
