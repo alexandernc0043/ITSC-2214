@@ -131,20 +131,70 @@ public class ExpressionTree {
     }
 
     BinaryNode<String> simplify(BinaryNode<String> root) {
-        if(root.getLeft() == null && root.getRight() == null){
+        if (root == null) {
+            return null;
+        }
+        if (root.getLeft() == null && root.getRight() == null) {
             return root;
         }
-        BinaryNode<String> tree = root;
-        BinaryNode<String> left = tree.getLeft();
-        BinaryNode<String> right = tree.getRight();
-        if (root.getValue().matches("[*/]") && right.getValue().equals("1")) {
-            tree = left;
+        BinaryNode<String> left = simplify(root.getLeft());
+        BinaryNode<String> right = simplify(root.getRight());
+        root.setLeft(left);
+        root.setRight(right);
+        boolean leftZero = left.getValue().equals("0");
+        boolean rightZero = right.getValue().equals("0");
+        boolean leftOne = left.getValue().equals("1");
+        boolean rightOne = right.getValue().equals("1");
+
+        switch (root.getValue()) {
+            case "+":
+                if (isLeaf(left) && leftZero) {
+                    return right;
+                }
+                if (isLeaf(right) && rightZero) {
+                    return left;
+                }
+                break;
+            case "-":
+                if (isLeaf(right) && rightZero) {
+                    return left;
+                }
+                break;
+            case "*":
+                if (leftZero || rightZero) {
+                    return new BinaryNode<String>("0");
+                }
+                if (leftOne) {
+                    return right;
+                }
+                if (rightOne) {
+                    return left;
+                }
+                break;
+            case "/":
+                if (rightZero) {
+                    throw new ArithmeticException("Divide by zero error.");
+                }
+                if (isLeaf(right) && rightOne) {
+                    return left;
+                }
+                break;
         }
-        if (root.getValue().matches("[+-]") && right.getValue().equals("0")) {
-            tree = left;
+        return root;
+    }
+
+    public boolean isLeaf(BinaryNode<String> node) {
+        return node.getLeft() == null && node.getRight() == null;
+    }
+
+    public String infixNotation(BinaryNode<String> node) {
+        String root = node.getValue();
+        if (node.getLeft() == null && node.getRight() == null) {
+            return root;
         }
-        tree.setLeft(simplify(root.getLeft()));
-        tree.setRight(simplify(root.getRight()));
-        return tree;
+        String left = infixNotation(node.getLeft());
+        String right = infixNotation(node.getRight());
+
+        return "(" + left + " " + root + " " + right + ")";
     }
 }

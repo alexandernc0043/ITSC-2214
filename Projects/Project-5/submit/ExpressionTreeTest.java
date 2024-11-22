@@ -65,9 +65,19 @@ public class ExpressionTreeTest {
      */
     @Test
     public void testSimplify() {
-        BinaryNode<String> tree = runner.simplify(runner.parse("1 + 0"));
+        BinaryNode<String> tree = runner.simplify(runner.parse("1 0 +"));
         assertNull(tree.getLeft());
         assertNull(tree.getRight());
-        assertEquals(1, tree.getValue());
+        assertEquals("1", tree.getValue());
+        tree = runner.simplify(runner.parse("a 1 /"));
+        assertNull(tree.getLeft());
+        assertNull(tree.getRight());
+        assertEquals("a", tree.getValue());
+        tree = runner.simplify(runner.parse("a b + 1 *"));
+        assertEquals("(a + b)", runner.infixNotation(tree));
+        tree = runner.simplify(runner.parse("0 20 2 * +"));
+        assertEquals("(20 * 2)", runner.infixNotation(tree));
+        tree = runner.simplify(runner.parse("0 y 1 * +"));
+        assertEquals("y", runner.infixNotation(tree));
     }
 }
