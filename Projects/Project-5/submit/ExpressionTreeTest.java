@@ -23,109 +23,33 @@ public class ExpressionTreeTest {
      */
     @Before
     public void setup() {
-        runner = new ExpressionTree("3 4 +");
+        runner = new ExpressionTree();
     }
 
-    /**
-     * Parse Test.
-     */
-    @Test
-    public void testParse() {
-        assertTrue(runner.parse());
-        runner = new ExpressionTree(null);
-        assertFalse(runner.parse());
-        runner = new ExpressionTree("+ + +");
-        assertFalse(runner.parse());
-        runner = new ExpressionTree("+");
-        assertFalse(runner.parse());
-        runner = new ExpressionTree("3 +");
-        assertFalse(runner.parse());
-        runner = new ExpressionTree("");
-        assertFalse(runner.parse());
-        runner = new ExpressionTree("5");
-        assertTrue(runner.parse());
-        runner = new ExpressionTree("3 4 5 * +");
-        assertTrue(runner.parse());
-        runner = new ExpressionTree("3 3 3 +");
-        assertTrue(runner.parse());
-        runner = new ExpressionTree("2 3 + 4 5 * + 5 /");
-        assertTrue(runner.parse());
-    }
-    /**
-     * getRoot Test.
-     */
-    @Test
-    public void testGetRoot() {
-        assertNull(runner.getRoot());
-        runner.parse();
-        assertNotNull(runner.getRoot());
-        assertEquals("+", runner.getRoot().getValue());
-    }
     /**
      * Infix notation test.
      */
     @Test
     public void testInfixNotation() {
-        runner.parse();
-        assertEquals("(3 + 4)", runner.infixNotation());
-
-        runner = new ExpressionTree("3 4 * 5 +");
-        runner.parse();
-        assertEquals("((3 * 4) + 5)", runner.infixNotation());
-
-        runner = new ExpressionTree("3 4 5 * +");
-        runner.parse();
-        assertEquals("(3 + (4 * 5))", runner.infixNotation());
-
-        runner = new ExpressionTree("10");
-        runner.parse();
-        assertEquals("10", runner.infixNotation());
-
-        runner = new ExpressionTree("2 3 + 4 5 * + 5 /");
-        runner.parse();
-        assertEquals("(((2 + 3) + (4 * 5)) / 5)", runner.infixNotation());
-
-        runner = new ExpressionTree("9 5 - 2 +");
-        runner.parse();
-        assertEquals("((9 - 5) + 2)", runner.infixNotation());
-
-        runner = new ExpressionTree("1 2 3 +");
-        assertNull(runner.infixNotation());
+        runner.parse("3 4 +");
     }
     /**
      * Test evaluate.
      */
     @Test
     public void testEvaluate() {
-        runner.parse();
-        assertEquals(7, runner.evaluate());
-
-        runner = new ExpressionTree("3 4 * 5 +");
-        runner.parse();
-        assertEquals(17, runner.evaluate());
-
-        runner = new ExpressionTree("3 4 5 * +");
-        runner.parse();
-        assertEquals(23, runner.evaluate());
-
-        runner = new ExpressionTree("10");
-        runner.parse();
-        assertEquals(10, runner.evaluate());
-
-        runner = new ExpressionTree("2 3 + 4 5 * + 5 /");
-        runner.parse();
-        assertEquals(5, runner.evaluate());
-
-        runner = new ExpressionTree("10 5 -");
-        runner.parse();
-        assertEquals(5, runner.evaluate());
-
-        runner = new ExpressionTree("10 5 -");
-        assertEquals(0, runner.evaluate());
-
-        runner = new ExpressionTree("2 2 /");
-        runner.parse();
-        assertEquals(1, runner.evaluate());
+        runner.parse("3 4 +");
+        assertEquals(7, runner.evaluate(runner.parse("3 4 +")));
+        assertEquals(17, runner.evaluate(runner.parse("3 4 * 5 +")));
+        assertEquals(23, runner.evaluate(runner.parse("3 4 5 * +")));
+        assertEquals(5, runner.evaluate(runner.parse("2 3 + 4 5 * + 5 /")));
+        assertEquals(5, runner.evaluate(runner.parse("10 5 -")));
+        assertEquals(1, runner.evaluate(runner.parse("2 2 /")));
+        assertEquals(10, runner.evaluate(runner.parse("a 10 =")));
+        assertEquals(11, runner.evaluate(runner.parse("a 1 +")));
+        assertEquals(11, runner.evaluate(runner.parse("a a 1 + =")));
+        assertEquals(13, runner.evaluate(runner.parse("a a 1 + = 1 +")));
+        assertEquals(12, runner.evaluate(runner.parse("a")));
     }
     
     /**
@@ -133,20 +57,17 @@ public class ExpressionTreeTest {
      */
     @Test(expected = ArithmeticException.class)
     public void testEvaluateTwo() {
-        runner = new ExpressionTree("0 0 /");
-        runner.parse();
-        runner.evaluate();
+        runner.evaluate(runner.parse("10 0 /"));
     }
     
     /**
-     * Tests the traverse method.
+     * Tests simplify.
      */
     @Test
-    public void testTraverse() {
-        BinaryNode<String> testNode = new BinaryNode<String>("10");
-        runner = new ExpressionTree("10");
-        runner.parse();
-        assertEquals(10, runner.traverse(testNode));
-        assertEquals(10, runner.evaluate());
+    public void testSimplify() {
+        BinaryNode<String> tree = runner.simplify(runner.parse("1 + 0"));
+        assertNull(tree.getLeft());
+        assertNull(tree.getRight());
+        assertEquals(1, tree.getValue());
     }
 }

@@ -1,0 +1,4 @@
+{
+    "java.checkstyle.configuration": "${workspaceFolder}/lib/Checkstyle.xml",
+    "java.debug.settings.onBuildFailureProceed": true
+}
