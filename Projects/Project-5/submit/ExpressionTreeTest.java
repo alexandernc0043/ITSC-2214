@@ -79,5 +79,9 @@ public class ExpressionTreeTest {
         assertEquals("(20 * 2)", runner.infixNotation(tree));
         tree = runner.simplify(runner.parse("0 y 1 * +"));
         assertEquals("y", runner.infixNotation(tree));
+        tree = null;
+        assertNull(runner.simplify(tree));
+        tree = runner.parse("10");
+        tree = runner.simplify(tree);
     }
 }
